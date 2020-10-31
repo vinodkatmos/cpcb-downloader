@@ -52,4 +52,17 @@ for state in dropdown.find_elements_by_css_selector('li'):
                     # Tabular
                     dropdown = driver.find_element_by_css_selector('.options')
                     dropdown.find_elements_by_css_selector('li')[2].click()
+#select dates
+                    from_date = driver.find_element_by_xpath('/html/body/app-root/app-caaqm-dashboard/div/div/main/section/app-caaqm-view-data/div/div/div[4]/div[1]/div/div/div/angular2-date-picker/div/div[1]/span')
+                    driver.execute_script("arguments[0].innerHTML= '24-Oct-2020 00:00';",from_date);
+                    time.sleep(2)
+
+                    to_date = driver.find_element_by_xpath('//*[@id="date2"]/angular2-date-picker/div/div[1]/span')
+                    driver.execute_script("arguments[0].innerHTML= '31-Oct-2020 24:00';",to_date);
+                    time.sleep(2)
+                    #click submit
+                    driver.find_element_by_xpath('/html/body/app-root/app-caaqm-dashboard/div/div/main/section/app-caaqm-view-data/div/div/div[5]/button').click()
+                    time.sleep(5)
+                    #download excel file
+                    driver.find_element_by_xpath('/html/body/app-root/app-caaqm-dashboard/div/div/main/section/app-caaqm-view-data-report/div[2]/div[1]/div[2]/div/div/a[2]/i').click()
                     
