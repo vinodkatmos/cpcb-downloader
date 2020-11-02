@@ -92,7 +92,7 @@ for state_text in stations.keys():
                             # start date
                             date_picker(start_date, "date")    
                             # end date
-                            # date_picker(start_date, "date")  # not working
+                            # date_picker(end_date, "date2")  # not working
                             to_date = driver.find_element_by_xpath('//*[@id="date2"]/angular2-date-picker/div/div[1]/span')
                             driver.execute_script("arguments[0].innerHTML= '{}';".format(end_date),
                                                   to_date);
