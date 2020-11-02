@@ -70,7 +70,7 @@ for state_text in stations.keys():
                             dropdown = driver.find_element_by_css_selector('.options')
                             dropdown.find_elements_by_css_selector('li')[2].click()
                             # select dates
-                            from_date = driver.find_element_by_xpath('/html/body/app-root/app-caaqm-dashboard/div/div/main/section/app-caaqm-view-data/div/div/div[4]/div[1]/div/div/div/angular2-date-picker/div/div[1]/span')
+                            from_date = driver.find_element_by_xpath('//*[@id="date"]/angular2-date-picker/div/div[1]/span')
                             driver.execute_script("arguments[0].innerHTML= '{}';".format(start_date),
                                                   from_date);
                             time.sleep(1)
