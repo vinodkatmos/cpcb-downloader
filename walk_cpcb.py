@@ -6,6 +6,10 @@ Created on Fri Oct 30 09:40:35 2020
 """
 # %% imports and definitions
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from datetime import date
 import time
 import yaml
@@ -54,8 +58,13 @@ for state_text in stations.keys():
         for station_text in stations[state_text][city_text]:
             driver = webdriver.Chrome(driver_path)
             driver.get(url)
-            time.sleep(8)  # sleep some time for waiting
-
+            delay = 8  # sleep some time (in seconds) for waiting
+            try:
+                myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'toggle')))
+                print("Page is ready!")
+            except TimeoutException:
+                print("Loading took too much time!")
+                continue
             click_dropdown(0)
             dropdown = driver.find_element_by_css_selector('.options')
             for state in dropdown.find_elements_by_css_selector('li'):
