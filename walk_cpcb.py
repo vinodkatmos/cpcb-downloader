@@ -18,18 +18,18 @@ def click_dropdown(idx):
 
 
 def date_picker(date_time, typ):
-    addstr = "/i" if typ == "date" else ""
     year = date_time.year
     month = date_time.strftime('%b').upper()
     day = date_time.day
-    from_date = driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[1]'.format(typ, addstr))
+    from_date = driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[1]/i'.format(typ))
     from_date.click()
-    from_year = driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[2]/div[3]/div'.format(typ, addstr))
+    from_year = driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[2]/div[3]/div'.format(typ))
     from_year.click()
     driver.find_element_by_xpath('//*[@id="{}"]'.format(year)).click()
     from_month = driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[2]/div[2]/div'.format(typ))
     from_month.click()
-    driver.find_element_by_xpath('//*[@id="{}"]'.format(month)).click()
+    # driver.find_element_by_xpath('//*[@id="{}"]'.format(month)).click()
+    driver.find_element_by_id('{}'.format(typ)).find_element_by_class_name('months-view').find_element_by_id(month).click()
     row = 1 + int(day/7)
     col = (day % 7) + 1
     driver.find_element_by_xpath('//*[@id="{}"]/angular2-date-picker/div/div[2]/table[2]/tbody/tr[{}]/td[{}]/span'.format(typ, row, col)).click()
@@ -38,7 +38,7 @@ def date_picker(date_time, typ):
 
 # YYYY, m, d format
 start_date = date(2018, 1, 1)
-end_date = date(2020, 9, 1)
+end_date = date(2019, 12, 1)
 driver_path = r'D:\postdoc\Collab\Mohali\chromedriver\chromedriver.exe'
 sfl = r'D:\postdoc\Collab\Mohali\cpcb_downloader\cpcb-downloader\station.yml'
 url = 'https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing/data'
@@ -92,8 +92,8 @@ for state_text in stations.keys():
                             # start date
                             date_picker(start_date, "date")    
                             # end date
-                            # date_picker(end_date, "date2")  # not working
-                            to_date = driver.find_element_by_xpath('//*[@id="date2"]/angular2-date-picker/div/div[1]/span')
+                            date_picker(end_date, "date2")  # not working
+                            # to_date = driver.find_element_by_xpath('//*[@id="date2"]/angular2-date-picker/div/div[1]/span')
                             driver.execute_script("arguments[0].innerHTML= '{}';".format(end_date),
                                                   to_date);
                             time.sleep(1)
